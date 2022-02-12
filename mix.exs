@@ -14,7 +14,8 @@ defmodule LifeCycleHook.MixProject do
       deps: deps(),
       package: package(),
       description: description(),
-      source_url: @source_url
+      source_url: @source_url,
+      docs: docs()
     ]
   end
 
@@ -33,7 +34,8 @@ defmodule LifeCycleHook.MixProject do
     [
       {:phoenix_live_view, "~> 0.17"},
       {:jason, "~> 1.0", optional: true},
-      {:floki, "~> 0.30.0", only: :test}
+      {:floki, "~> 0.30.0", only: :test},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
@@ -48,5 +50,9 @@ defmodule LifeCycleHook.MixProject do
 
   defp description() do
     "A simple hook that logs each life-cycle step of LiveView"
+  end
+
+  defp docs() do
+    [main: "readme", extras: ["README.md"]]
   end
 end
