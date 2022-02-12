@@ -1,18 +1,25 @@
 defmodule LifeCycleHook do
-  @moduledoc """
-  Documentation for `LifeCycleHook`.
-  """
+  import Phoenix.LiveView
+  require Logger
 
-  @doc """
-  Hello world.
+  def on_mount(module, _params, _session, socket) do
+    socket =
+      socket
+      |> attach_mount_hook(module)
 
-  ## Examples
+    {:cont, socket}
+  end
 
-      iex> LifeCycleHook.hello()
-      :world
+  defp attach_mount_hook(socket, module) do
+    mount_hook(socket, module)
 
-  """
-  def hello do
-    :world
+    socket
+  end
+
+  defp mount_hook(socket, module) do
+    case connected?(socket) do
+      false -> Logger.debug("#{module} mount/3 with HTTP")
+      true -> Logger.debug("#{module} mount/3 with Websocket")
+    end
   end
 end
