@@ -1,6 +1,30 @@
 # LifeCycleHook
 
-**TODO: Add description**
+LifeCycleHook is a simple hook that logs each life-cycle step of LiveView.
+
+It is good for learning Phoenix LiveView life-cycle.
+
+## Overview
+
+By mounting `LifeCycleHook` with `on_mount/1` in LiveView, you can see logs for each life-cycle.
+
+```elixir
+defmodule MyApp.MyLive do
+  use Phoenix.LiveView
+
+  on_mount({LifeCycleHook, __MODULE__})
+
+  @impl true
+  def render(assigns) do
+    ...
+  end
+end
+```
+
+```
+[debug] Elixir.MyApp.MyLive mount/3 with HTTP
+[debug] Elixir.MyApp.MyLive mount/3 with WebSocket
+```
 
 ## Installation
 
@@ -14,8 +38,3 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/life_cycle_hook>.
-
