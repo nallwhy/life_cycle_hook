@@ -38,3 +38,8 @@ def deps do
   ]
 end
 ```
+
+## TO DO
+
+- [ ] Add `handle_params` hook
+- [ ] Add macro that replace `on_mount({LifeCycleHook, __MODULE__})`
