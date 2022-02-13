@@ -1,8 +1,8 @@
 defmodule LifeCycleHook.MixProject do
   use Mix.Project
 
-  @version "0.4.0"
   @source_url "https://github.com/nallwhy/life_cycle_hook"
+  @version "0.4.0"
 
   def project do
     [
@@ -13,8 +13,6 @@ defmodule LifeCycleHook.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),
       package: package(),
-      description: description(),
-      source_url: @source_url,
       docs: docs()
     ]
   end
@@ -22,14 +20,12 @@ defmodule LifeCycleHook.MixProject do
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger]
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:phoenix_live_view, "~> 0.17"},
@@ -39,20 +35,30 @@ defmodule LifeCycleHook.MixProject do
     ]
   end
 
-  defp package() do
+  defp package do
     [
+      description: "A simple hook that logs each life-cycle step of LiveView",
       licenses: ["MIT"],
-      links: %{"GitHub" => @source_url},
       maintainers: ["Jinkyou Son(nallwhy@gmail.com)"],
-      files: ["lib", "mix.exs", "LICENSE", "README.md"]
+      files: ["lib", "mix.exs", "LICENSE", "README.md", "CHANGELOG.md"],
+      links: %{
+        "Changelog" => "https://hexdocs.pm/life_cycle_hook/changelog.html",
+        "GitHub" => @source_url
+      },
     ]
   end
 
-  defp description() do
-    "A simple hook that logs each life-cycle step of LiveView"
-  end
-
-  defp docs() do
-    [main: "readme", extras: ["README.md"]]
+  defp docs do
+    [
+      extras: [
+        "CHANGELOG.md": [],
+        "LICENSE.md": [title: "License"],
+        "README.md": [title: "Overview"]
+      ],
+      source_url: @source_url,
+      main: "readme",
+      api_reference: false,
+      formatters: ["html"]
+    ]
   end
 end

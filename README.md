@@ -1,5 +1,13 @@
 # LifeCycleHook
 
+[![Hex Version](https://img.shields.io/hexpm/v/life_cycle_hook.svg)](https://hex.pm/packages/life_cycle_hook)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/life_cycle_hook/)
+[![Total Download](https://img.shields.io/hexpm/dt/life_cycle_hook.svg)](https://hex.pm/packages/life_cycle_hook)
+[![License](https://img.shields.io/hexpm/l/life_cycle_hook.svg)](https://github.com/nallwhy/life_cycle_hook/blob/master/LICENSE.md)
+[![Last Updated](https://img.shields.io/github/last-commit/nallwhy/life_cycle_hook.svg)](https://github.com/nallwhy/life_cycle_hook/commits/master)
+
+<!-- MDOC !-->
+
 LifeCycleHook is a simple hook that logs each life-cycle step of LiveView.
 
 It is good for learning Phoenix LiveView life-cycle.
@@ -50,8 +58,8 @@ end
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `life_cycle_hook` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `:life_cycle_hook` to your list of
+dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -60,6 +68,7 @@ def deps do
   ]
 end
 ```
+<!-- MDOC !-->
 
 ## TO DO
 
@@ -69,3 +78,10 @@ end
 - [ ] Add `handle_event` hook
 - [ ] Add `handle_info` hook
 - [x] Support `only`, `except` options in `use LifeCycleHook`
+
+## Copyright and License
+
+Copyright (c) 2022 Jinkyou Son (Json)
+
+This work is free. You can redistribute it and/or modify it under the
+terms of the MIT License. See the [LICENSE.md](./LICENSE.md) file for more details.
