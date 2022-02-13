@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.0 (2022-02-13)
+
+- Enhancements
+  - Support `only`, `except` options in `use LifeCycleHook`
+
 ## v0.3.0 (2022-02-13)
 
 - Enhancements
