@@ -20,7 +20,7 @@ defmodule LifeCycleHook do
   end
 
   defp attach_mount_hook(socket, module) do
-    mount_hook(socket, module)
+    log_message(socket, module, :mount) |> Logger.debug()
 
     socket
   end
@@ -28,25 +28,19 @@ defmodule LifeCycleHook do
   defp attach_handle_params_hook(socket, module) do
     socket
     |> attach_hook(:life_cycle_hook, :handle_params, fn _params, _session, socket ->
-      handle_params_hook(socket, module)
+      log_message(socket, module, :handle_params) |> Logger.debug()
 
       {:cont, socket}
     end)
   end
 
-  defp mount_hook(socket, module) do
-    case connected?(socket) do
-      false -> Logger.debug("#{module} mount/3 with HTTP")
-      true -> Logger.debug("#{module} mount/3 with Websocket")
-    end
-  end
+  defp log_message(socket, module, stage) do
+    method =
+      case connected?(socket) do
+        false -> "HTTP"
+        true -> "Websocket"
+      end
 
-  defp handle_params_hook(socket, module) do
-    case connected?(socket) do
-      false -> Logger.debug("#{module} handle_params/3 with HTTP")
-      true -> Logger.debug("#{module} handle_params/3 with Websocket")
-    end
-
-    {:cont, socket}
+    "#{module} #{stage} with #{method}"
   end
 end
