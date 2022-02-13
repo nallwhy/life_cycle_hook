@@ -2,6 +2,9 @@ defmodule LifeCycleHook do
   import Phoenix.LiveView
   require Logger
 
+  # TODO: Add more stages
+  @life_cycle_stages [:mount, :handle_params]
+
   defmacro __using__(_) do
     quote do
       on_mount(unquote(__MODULE__))
@@ -10,23 +13,24 @@ defmodule LifeCycleHook do
 
   def on_mount(:default, _params, _session, socket) do
     socket =
-      socket
-      |> attach_mount_hook()
-      |> attach_handle_params_hook()
+      @life_cycle_stages
+      |> Enum.reduce(socket, fn stage, socket ->
+        socket |> attach_life_cycle_hook(stage)
+      end)
 
     {:cont, socket}
   end
 
-  defp attach_mount_hook(socket) do
+  defp attach_life_cycle_hook(socket, :mount) do
     log_message(socket, :mount) |> Logger.debug()
 
     socket
   end
 
-  defp attach_handle_params_hook(socket) do
+  defp attach_life_cycle_hook(socket, stage) do
     socket
-    |> attach_hook(:life_cycle_hook, :handle_params, fn _params, _session, socket ->
-      log_message(socket, :handle_params) |> Logger.debug()
+    |> attach_hook(:life_cycle_hook, stage, fn _params, _session, socket ->
+      log_message(socket, stage) |> Logger.debug()
 
       {:cont, socket}
     end)
