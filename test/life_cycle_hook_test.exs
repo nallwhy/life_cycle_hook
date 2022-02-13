@@ -17,6 +17,8 @@ defmodule LifeCycleHookTest do
     assert {:ok, _, _} = result
 
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive mount/3 with HTTP"
+    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_params/3 with HTTP"
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive mount/3 with Websocket"
+    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_params/3 with Websocket"
   end
 end
