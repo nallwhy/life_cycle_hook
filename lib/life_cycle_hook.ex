@@ -4,11 +4,13 @@ defmodule LifeCycleHook do
 
   defmacro __using__(_) do
     quote do
-      on_mount({unquote(__MODULE__), __MODULE__})
+      on_mount(unquote(__MODULE__))
     end
   end
 
-  def on_mount(module, _params, _session, socket) do
+  def on_mount(:default, _params, _session, socket) do
+    module = socket.view
+
     socket =
       socket
       |> attach_mount_hook(module)
