@@ -2,6 +2,9 @@ defmodule LifeCycleHook do
   import Phoenix.LiveView
   require Logger
 
+  # TODO: Add more stages
+  @life_cycle_stages [:mount, :handle_params]
+
   defmacro __using__(_) do
     quote do
       on_mount(unquote(__MODULE__))
@@ -9,44 +12,39 @@ defmodule LifeCycleHook do
   end
 
   def on_mount(:default, _params, _session, socket) do
-    module = socket.view
-
     socket =
-      socket
-      |> attach_mount_hook(module)
-      |> attach_handle_params_hook(module)
+      @life_cycle_stages
+      |> Enum.reduce(socket, fn stage, socket ->
+        socket |> attach_life_cycle_hook(stage)
+      end)
 
     {:cont, socket}
   end
 
-  defp attach_mount_hook(socket, module) do
-    mount_hook(socket, module)
+  defp attach_life_cycle_hook(socket, :mount) do
+    log_message(socket, :mount) |> Logger.debug()
 
     socket
   end
 
-  defp attach_handle_params_hook(socket, module) do
+  defp attach_life_cycle_hook(socket, stage) do
     socket
-    |> attach_hook(:life_cycle_hook, :handle_params, fn _params, _session, socket ->
-      handle_params_hook(socket, module)
+    |> attach_hook(:life_cycle_hook, stage, fn _params, _session, socket ->
+      log_message(socket, stage) |> Logger.debug()
 
       {:cont, socket}
     end)
   end
 
-  defp mount_hook(socket, module) do
-    case connected?(socket) do
-      false -> Logger.debug("#{module} mount/3 with HTTP")
-      true -> Logger.debug("#{module} mount/3 with Websocket")
-    end
-  end
+  defp log_message(socket, stage) do
+    module = socket.view
 
-  defp handle_params_hook(socket, module) do
-    case connected?(socket) do
-      false -> Logger.debug("#{module} handle_params/3 with HTTP")
-      true -> Logger.debug("#{module} handle_params/3 with Websocket")
-    end
+    method =
+      case connected?(socket) do
+        false -> "HTTP"
+        true -> "Websocket"
+      end
 
-    {:cont, socket}
+    "#{module} #{stage} with #{method}"
   end
 end
