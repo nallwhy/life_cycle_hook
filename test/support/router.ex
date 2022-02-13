@@ -10,5 +10,7 @@ defmodule LifeCycleHookTest.Router do
     pipe_through([:browser])
 
     live("/test", TestLive)
+    live("/test_only_mount", TestOnlyMountLive)
+    live("/test_except_mount", TestExceptMountLive)
   end
 end
