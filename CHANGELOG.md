@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.0 (2022-02-13)
+
+- Enhancements
+  - Add logging `handle_params/3` life-cycle of LiveView
+
 ## v0.2.1 (2022-02-13)
 
 - Fixs
