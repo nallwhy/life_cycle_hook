@@ -9,32 +9,32 @@ defmodule LifeCycleHook do
   end
 
   def on_mount(:default, _params, _session, socket) do
-    module = socket.view
-
     socket =
       socket
-      |> attach_mount_hook(module)
-      |> attach_handle_params_hook(module)
+      |> attach_mount_hook()
+      |> attach_handle_params_hook()
 
     {:cont, socket}
   end
 
-  defp attach_mount_hook(socket, module) do
-    log_message(socket, module, :mount) |> Logger.debug()
+  defp attach_mount_hook(socket) do
+    log_message(socket, :mount) |> Logger.debug()
 
     socket
   end
 
-  defp attach_handle_params_hook(socket, module) do
+  defp attach_handle_params_hook(socket) do
     socket
     |> attach_hook(:life_cycle_hook, :handle_params, fn _params, _session, socket ->
-      log_message(socket, module, :handle_params) |> Logger.debug()
+      log_message(socket, :handle_params) |> Logger.debug()
 
       {:cont, socket}
     end)
   end
 
-  defp log_message(socket, module, stage) do
+  defp log_message(socket, stage) do
+    module = socket.view
+
     method =
       case connected?(socket) do
         false -> "HTTP"
