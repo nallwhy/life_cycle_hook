@@ -42,3 +42,4 @@ end
 
 - [ ] Add `handle_params` hook
 - [x] Add macro that replace `on_mount({LifeCycleHook, __MODULE__})`
+- [ ] Support nested LiveView with `sticky: true` option
