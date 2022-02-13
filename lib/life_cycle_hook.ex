@@ -2,6 +2,12 @@ defmodule LifeCycleHook do
   import Phoenix.LiveView
   require Logger
 
+  defmacro __using__(_) do
+    quote do
+      on_mount({unquote(__MODULE__), __MODULE__})
+    end
+  end
+
   def on_mount(module, _params, _session, socket) do
     socket =
       socket

@@ -1,7 +1,6 @@
 defmodule LifeCycleHookTest.TestLive do
   use Phoenix.LiveView
-
-  on_mount({LifeCycleHook, __MODULE__})
+  use LifeCycleHook
 
   @impl true
   def render(assigns) do
