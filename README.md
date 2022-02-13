@@ -6,13 +6,12 @@ It is good for learning Phoenix LiveView life-cycle.
 
 ## Overview
 
-By mounting `LifeCycleHook` with `on_mount/1` in LiveView, you can see logs for each life-cycle.
+By mounting `LifeCycleHook` on LiveView with `use LifeCycleHook`, you can see logs for each life-cycle.
 
 ```elixir
 defmodule MyApp.MyLive do
   use Phoenix.LiveView
-
-  on_mount({LifeCycleHook, __MODULE__})
+  use LifeCycleHook
 
   @impl true
   def render(assigns) do
@@ -42,4 +41,4 @@ end
 ## TO DO
 
 - [ ] Add `handle_params` hook
-- [ ] Add macro that replace `on_mount({LifeCycleHook, __MODULE__})`
+- [x] Add macro that replace `on_mount({LifeCycleHook, __MODULE__})`
