@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.1 (2022-02-13)
+
+- Fixs
+  - Remove unnecessary input in `on_mount/1`
+
 ## v0.2.0 (2022-02-13)
 
 - Enhancements

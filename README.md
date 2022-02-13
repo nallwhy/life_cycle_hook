@@ -33,7 +33,7 @@ by adding `life_cycle_hook` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:life_cycle_hook, "~> 0.2.0"}
+    {:life_cycle_hook, "~> 0.2.1"}
   ]
 end
 ```
