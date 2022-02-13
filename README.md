@@ -6,6 +6,8 @@ It is good for learning Phoenix LiveView life-cycle.
 
 ## Overview
 
+> :warning: LifeCycleHook is not working with **sticky nested** LiveView.
+
 By mounting `LifeCycleHook` on LiveView with `use LifeCycleHook`, you can see logs for each life-cycle.
 
 ```elixir
@@ -22,7 +24,9 @@ end
 
 ```
 [debug] Elixir.MyApp.MyLive mount/3 with HTTP
+[debug] Elixir.MyApp.MyLive handle_params/3 with HTTP
 [debug] Elixir.MyApp.MyLive mount/3 with WebSocket
+[debug] Elixir.MyApp.MyLive handle_params/3 with WebSocket
 ```
 
 ## Installation
@@ -40,6 +44,6 @@ end
 
 ## TO DO
 
-- [ ] Add `handle_params` hook
+- [x] Add `handle_params` hook
 - [x] Add macro that replace `on_mount({LifeCycleHook, __MODULE__})`
 - [ ] Support nested LiveView with `sticky: true` option
