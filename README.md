@@ -78,6 +78,8 @@ end
 - [ ] Add `handle_event` hook
 - [ ] Add `handle_info` hook
 - [x] Support `only`, `except` options in `use LifeCycleHook`
+- [ ] Support setting log level
+- [ ] Support watching params of each hook
 
 ## Copyright and License
 
