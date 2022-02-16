@@ -4,7 +4,7 @@
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/life_cycle_hook/)
 [![Total Download](https://img.shields.io/hexpm/dt/life_cycle_hook.svg)](https://hex.pm/packages/life_cycle_hook)
 [![License](https://img.shields.io/hexpm/l/life_cycle_hook.svg)](https://github.com/nallwhy/life_cycle_hook/blob/master/LICENSE.md)
-[![Last Updated](https://img.shields.io/github/last-commit/nallwhy/life_cycle_hook.svg)](https://github.com/nallwhy/life_cycle_hook/commits/master)
+[![Last Updated](https://img.shields.io/github/last-commit/nallwhy/life_cycle_hook.svg)](https://github.com/nallwhy/life_cycle_hook/commits/main)
 
 <!-- MDOC !-->
 
