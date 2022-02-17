@@ -86,7 +86,7 @@ dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:life_cycle_hook, "~> 0.4.0"}
+    {:life_cycle_hook, "~> 0.5"}
   ]
 end
 ```
