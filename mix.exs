@@ -40,7 +40,7 @@ defmodule LifeCycleHook.MixProject do
       description: "A simple hook that logs each life-cycle step of LiveView",
       licenses: ["MIT"],
       maintainers: ["Jinkyou Son(nallwhy@gmail.com)"],
-      files: ["lib", "mix.exs", "LICENSE", "README.md", "CHANGELOG.md"],
+      files: ["lib", "mix.exs", "LICENSE.md", "README.md", "CHANGELOG.md"],
       links: %{
         "Changelog" => "https://hexdocs.pm/life_cycle_hook/changelog.html",
         "GitHub" => @source_url
