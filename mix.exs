@@ -44,7 +44,7 @@ defmodule LifeCycleHook.MixProject do
       links: %{
         "Changelog" => "https://hexdocs.pm/life_cycle_hook/changelog.html",
         "GitHub" => @source_url
-      },
+      }
     ]
   end
 

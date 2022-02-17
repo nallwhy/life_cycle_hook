@@ -5,7 +5,6 @@ defmodule LifeCycleHook do
              |> String.split("<!-- MDOC !-->")
              |> Enum.fetch!(1)
 
-
   import Phoenix.LiveView
   require Logger
 
