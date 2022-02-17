@@ -20,6 +20,8 @@ defmodule LifeCycleHookTest do
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_params with HTTP"
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive mount with Websocket"
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_params with Websocket"
+
+    # triggering handle_event, handle_info
   end
 
   test "use with only option" do
@@ -56,5 +58,23 @@ defmodule LifeCycleHookTest do
 
     assert log =~
              "[debug] Elixir.LifeCycleHookTest.TestExceptMountLive handle_params with Websocket"
+  end
+
+  test "use with log_level option" do
+    conn = Plug.Test.init_test_session(build_conn(), %{})
+
+    {result, log} =
+      with_log(fn ->
+        live(conn, "/test_log_level")
+      end)
+
+    assert {:ok, _, _} = result
+
+    assert log =~ "[warning] Elixir.LifeCycleHookTest.TestLogLevelLive mount with HTTP"
+    assert log =~ "[warning] Elixir.LifeCycleHookTest.TestLogLevelLive handle_params with HTTP"
+    assert log =~ "[warning] Elixir.LifeCycleHookTest.TestLogLevelLive mount with Websocket"
+
+    assert log =~
+             "[warning] Elixir.LifeCycleHookTest.TestLogLevelLive handle_params with Websocket"
   end
 end

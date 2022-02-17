@@ -14,6 +14,7 @@ defmodule LifeCycleHook do
   defmacro __using__(opts) do
     only = Keyword.get(opts, :only)
     except = Keyword.get(opts, :except)
+    log_level = Keyword.get(opts, :log_level, :debug)
 
     stages =
       case {only, except} do
@@ -24,33 +25,37 @@ defmodule LifeCycleHook do
       end
 
     quote do
-      on_mount({unquote(__MODULE__), %{stages: unquote(stages)}})
+      on_mount({unquote(__MODULE__), %{stages: unquote(stages), log_level: unquote(log_level)}})
     end
   end
 
-  def on_mount(%{stages: stages}, _params, _session, socket) do
+  def on_mount(%{stages: stages, log_level: log_level}, _params, _session, socket) do
     socket =
       stages
       |> Enum.reduce(socket, fn stage, socket ->
-        socket |> attach_life_cycle_hook(stage)
+        socket |> attach_life_cycle_hook(stage, log_level)
       end)
 
     {:cont, socket}
   end
 
-  defp attach_life_cycle_hook(socket, :mount) do
-    log_message(socket, :mount) |> Logger.debug()
+  defp attach_life_cycle_hook(socket, :mount, log_level) do
+    log_life_cycle(socket, :mount, log_level)
 
     socket
   end
 
-  defp attach_life_cycle_hook(socket, stage) do
+  defp attach_life_cycle_hook(socket, stage, log_level) do
     socket
     |> attach_hook(:life_cycle_hook, stage, fn _params, _session, socket ->
-      log_message(socket, stage) |> Logger.debug()
+      log_life_cycle(socket, stage, log_level)
 
       {:cont, socket}
     end)
+  end
+
+  defp log_life_cycle(socket, stage, log_level) do
+    Logger.log(log_level, log_message(socket, stage))
   end
 
   defp log_message(socket, stage) do

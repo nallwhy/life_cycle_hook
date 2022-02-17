@@ -12,5 +12,6 @@ defmodule LifeCycleHookTest.Router do
     live("/test", TestLive)
     live("/test_only_mount", TestOnlyMountLive)
     live("/test_except_mount", TestExceptMountLive)
+    live("/test_log_level", TestLogLevelLive)
   end
 end
