@@ -14,9 +14,7 @@ It is good for learning Phoenix LiveView life-cycle.
 
 ## Overview
 
-> :warning: Logging `handle_parmas` stage with LifeCycleHook is not working with **sticky nested** LiveView.
-
-By mounting `LifeCycleHook` on LiveView with `use LifeCycleHook`, you can see logs for each life-cycle.
+By mounting `LifeCycleHook` on LiveView with `use LifeCycleHook`, you can see logs for each life-cycle of LiveView.
 
 ```elixir
 defmodule MyApp.MyLive do
@@ -37,10 +35,13 @@ end
 [debug] Elixir.MyApp.MyLive handle_params with WebSocket
 ```
 
+### only/except options
+
 If you want to choose specific stages to log, you can use `only` or `except` option in `use LifeCycleHook`.
+For example, you can set `only: [:mount]` option to use `LifeCycleHook` in sticky nested LiveView which doesn't support `handle_params` hook.
 
 ```elixir
-defmodule MyApp.MyLive do
+defmodule MyApp.MyStickyNestedLive do
   use Phoenix.LiveView
   use LifeCycleHook, only: [:mount]
 
@@ -52,8 +53,29 @@ end
 ```
 
 ```
-[debug] Elixir.MyApp.MyLive mount with HTTP
-[debug] Elixir.MyApp.MyLive mount with WebSocket
+[debug] Elixir.MyApp.MyStickyNestedLive mount with HTTP
+[debug] Elixir.MyApp.MyStickyNestedLive mount with WebSocket
+```
+
+### log_level option
+
+You can change log level of `LifeCycleHook` with `log_level` option.
+
+```elixir
+defmodule MyApp.MyWarnLogLevelLive do
+  use Phoenix.LiveView
+  use LifeCycleHook, log_level: :warn
+
+  @impl true
+  def render(assigns) do
+    ...
+  end
+end
+```
+
+```
+[warning] Elixir.MyApp.MyWarnLogLevelLive mount with HTTP
+[warning] Elixir.MyApp.MyWarnLogLevelLive mount with WebSocket
 ```
 
 ## Installation
@@ -78,7 +100,7 @@ end
 - [ ] Add `handle_event` hook
 - [ ] Add `handle_info` hook
 - [x] Support `only`, `except` options in `use LifeCycleHook`
-- [ ] Support setting log level
+- [x] Support setting log level
 - [ ] Support watching params of each hook
 
 ## Copyright and License
