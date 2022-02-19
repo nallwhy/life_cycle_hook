@@ -9,7 +9,7 @@ defmodule LifeCycleHook do
   require Logger
 
   # TODO: Add more stages
-  @life_cycle_stages [:mount, :handle_params]
+  @life_cycle_stages [:mount, :handle_params, :handle_event]
 
   defmacro __using__(opts) do
     only = Keyword.get(opts, :only)
