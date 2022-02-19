@@ -8,7 +8,7 @@
 
 <!-- MDOC !-->
 
-LifeCycleHook is a simple hook that logs each life-cycle step of LiveView.
+LifeCycleHook is a simple hook that logs each life-cycle stage of LiveView.
 
 It is good for learning Phoenix LiveView life-cycle.
 

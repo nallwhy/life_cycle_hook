@@ -37,7 +37,7 @@ defmodule LifeCycleHook.MixProject do
 
   defp package do
     [
-      description: "A simple hook that logs each life-cycle step of LiveView",
+      description: "A simple hook that logs each life-cycle stage of LiveView",
       licenses: ["MIT"],
       maintainers: ["Jinkyou Son(nallwhy@gmail.com)"],
       files: ["lib", "mix.exs", "LICENSE.md", "README.md", "CHANGELOG.md"],
