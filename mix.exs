@@ -51,9 +51,9 @@ defmodule LifeCycleHook.MixProject do
   defp docs do
     [
       extras: [
+        "README.md": [title: "Overview"],
         "CHANGELOG.md": [],
-        "LICENSE.md": [title: "License"],
-        "README.md": [title: "Overview"]
+        "LICENSE.md": [title: "License"]
       ],
       source_url: @source_url,
       main: "readme",
