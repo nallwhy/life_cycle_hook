@@ -6,6 +6,12 @@ defmodule LifeCycleHookTest.TestLive do
   def render(assigns) do
     ~H"""
     test
+    <button phx-click="click"></button>
     """
+  end
+
+  @impl true
+  def handle_event("click", _params, socket) do
+    {:noreply, socket}
   end
 end

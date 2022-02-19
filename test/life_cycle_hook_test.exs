@@ -14,14 +14,19 @@ defmodule LifeCycleHookTest do
         live(conn, "/test")
       end)
 
-    assert {:ok, _, _} = result
+    assert {:ok, view, _} = result
 
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive mount with HTTP"
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_params with HTTP"
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive mount with Websocket"
     assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_params with Websocket"
 
-    # triggering handle_event, handle_info
+    {_, log} =
+      with_log(fn ->
+        view |> element("button") |> render_click()
+      end)
+
+    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_event event: click"
   end
 
   test "use with only option" do
