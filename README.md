@@ -25,6 +25,11 @@ defmodule MyApp.MyLive do
   def render(assigns) do
     ...
   end
+
+  @impl true
+  def handle_event("click", params, socket) do
+    ...
+  end
 end
 ```
 
@@ -33,6 +38,8 @@ end
 [debug] Elixir.MyApp.MyLive handle_params with HTTP
 [debug] Elixir.MyApp.MyLive mount with WebSocket
 [debug] Elixir.MyApp.MyLive handle_params with WebSocket
+
+[debug] Elixir.MyApp.MyLive handle_event event: click
 ```
 
 ### only/except options
@@ -97,7 +104,7 @@ end
 - [x] Add `handle_params` hook
 - [x] Add macro that replace `on_mount({LifeCycleHook, __MODULE__})`
 - [ ] Support nested LiveView with `sticky: true` option
-- [ ] Add `handle_event` hook
+- [x] Add `handle_event` hook
 - [ ] Add `handle_info` hook
 - [x] Support `only`, `except` options in `use LifeCycleHook`
 - [x] Support setting log level
