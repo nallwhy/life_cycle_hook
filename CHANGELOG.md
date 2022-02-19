@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## v0.6.0 (2022-02-20)
+
+- Enhancements
+  - Add logging `handle_event/3` life-cycle of LiveView
+
 ## v0.5.0 (2022-02-18)
 
 - Enhancements
