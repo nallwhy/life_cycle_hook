@@ -8,7 +8,7 @@ defmodule LifeCycleHook do
   import Phoenix.LiveView
   require Logger
 
-  # TODO: Add more stages
+  # TODO: Add handle_info
   @life_cycle_stages [:mount, :handle_params, :handle_event]
 
   defmacro __using__(opts) do
@@ -40,25 +40,25 @@ defmodule LifeCycleHook do
   end
 
   defp attach_life_cycle_hook(socket, :mount, log_level) do
-    log_life_cycle(socket, :mount, log_level)
+    log_life_cycle(socket, :mount, nil, log_level)
 
     socket
   end
 
   defp attach_life_cycle_hook(socket, stage, log_level) do
     socket
-    |> attach_hook(:life_cycle_hook, stage, fn _params, _session, socket ->
-      log_life_cycle(socket, stage, log_level)
+    |> attach_hook(:life_cycle_hook, stage, fn params, _session, socket ->
+      log_life_cycle(socket, stage, params, log_level)
 
       {:cont, socket}
     end)
   end
 
-  defp log_life_cycle(socket, stage, log_level) do
-    Logger.log(log_level, log_message(socket, stage))
+  defp log_life_cycle(socket, stage, params, log_level) do
+    Logger.log(log_level, log_message(socket, stage, params))
   end
 
-  defp log_message(socket, stage) do
+  defp log_message(socket, stage, _params) when stage in [:mount, :handle_params] do
     module = socket.view
 
     method =
@@ -68,5 +68,11 @@ defmodule LifeCycleHook do
       end
 
     "#{module} #{stage} with #{method}"
+  end
+
+  defp log_message(socket, :handle_event = stage, event) do
+    module = socket.view
+
+    "#{module} #{stage} event: #{event}"
   end
 end

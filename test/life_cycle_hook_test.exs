@@ -26,7 +26,7 @@ defmodule LifeCycleHookTest do
         view |> element("button") |> render_click()
       end)
 
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_event with Websocket"
+    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_event event: click"
   end
 
   test "use with only option" do
