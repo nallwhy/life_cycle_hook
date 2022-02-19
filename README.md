@@ -109,6 +109,8 @@ end
 - [x] Support `only`, `except` options in `use LifeCycleHook`
 - [x] Support setting log level
 - [ ] Support watching params of each hook
+- [ ] Support LiveComponent
+- [ ] Remove `Elixir` prefix from module names in logs
 
 ## Copyright and License
 
