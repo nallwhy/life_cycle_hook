@@ -59,7 +59,7 @@ defmodule LifeCycleHook do
   end
 
   defp log_message(socket, stage, _params) when stage in [:mount, :handle_params] do
-    module = socket.view
+    module_name = get_module_name(socket)
 
     method =
       case connected?(socket) do
@@ -67,12 +67,16 @@ defmodule LifeCycleHook do
         true -> "Websocket"
       end
 
-    "#{module} #{stage} with #{method}"
+    "#{module_name} #{stage} with #{method}"
   end
 
   defp log_message(socket, :handle_event = stage, event) do
-    module = socket.view
+    module_name = get_module_name(socket)
 
-    "#{module} #{stage} event: #{event}"
+    "#{module_name} #{stage} event: #{event}"
+  end
+
+  defp get_module_name(socket) do
+    socket.view |> inspect()
   end
 end
