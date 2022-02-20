@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## v0.7.0 (2022-02-20)
+
+- Enhancements
+  - Remove `Elixir` prefix from module names in logs
 ## v0.6.0 (2022-02-20)
 
 - Enhancements
