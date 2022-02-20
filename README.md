@@ -34,12 +34,12 @@ end
 ```
 
 ```
-[debug] Elixir.MyApp.MyLive mount with HTTP
-[debug] Elixir.MyApp.MyLive handle_params with HTTP
-[debug] Elixir.MyApp.MyLive mount with WebSocket
-[debug] Elixir.MyApp.MyLive handle_params with WebSocket
+[debug] MyApp.MyLive mount with HTTP
+[debug] MyApp.MyLive handle_params with HTTP
+[debug] MyApp.MyLive mount with WebSocket
+[debug] MyApp.MyLive handle_params with WebSocket
 
-[debug] Elixir.MyApp.MyLive handle_event event: click
+[debug] MyApp.MyLive handle_event event: click
 ```
 
 ### only/except options
@@ -60,8 +60,8 @@ end
 ```
 
 ```
-[debug] Elixir.MyApp.MyStickyNestedLive mount with HTTP
-[debug] Elixir.MyApp.MyStickyNestedLive mount with WebSocket
+[debug] MyApp.MyStickyNestedLive mount with HTTP
+[debug] MyApp.MyStickyNestedLive mount with WebSocket
 ```
 
 ### log_level option
@@ -81,8 +81,8 @@ end
 ```
 
 ```
-[warning] Elixir.MyApp.MyWarnLogLevelLive mount with HTTP
-[warning] Elixir.MyApp.MyWarnLogLevelLive mount with WebSocket
+[warning] MyApp.MyWarnLogLevelLive mount with HTTP
+[warning] MyApp.MyWarnLogLevelLive mount with WebSocket
 ```
 
 ## Installation
@@ -110,7 +110,7 @@ end
 - [x] Support setting log level
 - [ ] Support watching params of each hook
 - [ ] Support LiveComponent
-- [ ] Remove `Elixir` prefix from module names in logs
+- [x] Remove `Elixir` prefix from module names in logs
 
 ## Copyright and License
 
