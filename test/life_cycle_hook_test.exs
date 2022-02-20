@@ -16,17 +16,17 @@ defmodule LifeCycleHookTest do
 
     assert {:ok, view, _} = result
 
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive mount with HTTP"
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_params with HTTP"
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive mount with Websocket"
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_params with Websocket"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive mount with HTTP"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive handle_params with HTTP"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive mount with Websocket"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive handle_params with Websocket"
 
     {_, log} =
       with_log(fn ->
         view |> element("button") |> render_click()
       end)
 
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestLive handle_event event: click"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive handle_event event: click"
   end
 
   test "use with only option" do
@@ -39,12 +39,12 @@ defmodule LifeCycleHookTest do
 
     assert {:ok, _, _} = result
 
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestOnlyMountLive mount with HTTP"
-    refute log =~ "[debug] Elixir.LifeCycleHookTest.TestOnlyMountLive handle_params with HTTP"
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestOnlyMountLive mount with Websocket"
+    assert log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive mount with HTTP"
+    refute log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive handle_params with HTTP"
+    assert log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive mount with Websocket"
 
     refute log =~
-             "[debug] Elixir.LifeCycleHookTest.TestOnlyMountLive handle_params with Websocket"
+             "[debug] LifeCycleHookTest.TestOnlyMountLive handle_params with Websocket"
   end
 
   test "use with except option" do
@@ -57,12 +57,10 @@ defmodule LifeCycleHookTest do
 
     assert {:ok, _, _} = result
 
-    refute log =~ "[debug] Elixir.LifeCycleHookTest.TestExceptMountLive mount with HTTP"
-    assert log =~ "[debug] Elixir.LifeCycleHookTest.TestExceptMountLive handle_params with HTTP"
-    refute log =~ "[debug] Elixir.LifeCycleHookTest.TestExceptMountLive mount with Websocket"
-
-    assert log =~
-             "[debug] Elixir.LifeCycleHookTest.TestExceptMountLive handle_params with Websocket"
+    refute log =~ "[debug] LifeCycleHookTest.TestExceptMountLive mount with HTTP"
+    assert log =~ "[debug] LifeCycleHookTest.TestExceptMountLive handle_params with HTTP"
+    refute log =~ "[debug] LifeCycleHookTest.TestExceptMountLive mount with Websocket"
+    assert log =~ "[debug] LifeCycleHookTest.TestExceptMountLive handle_params with Websocket"
   end
 
   test "use with log_level option" do
@@ -75,11 +73,9 @@ defmodule LifeCycleHookTest do
 
     assert {:ok, _, _} = result
 
-    assert log =~ "[warning] Elixir.LifeCycleHookTest.TestLogLevelLive mount with HTTP"
-    assert log =~ "[warning] Elixir.LifeCycleHookTest.TestLogLevelLive handle_params with HTTP"
-    assert log =~ "[warning] Elixir.LifeCycleHookTest.TestLogLevelLive mount with Websocket"
-
-    assert log =~
-             "[warning] Elixir.LifeCycleHookTest.TestLogLevelLive handle_params with Websocket"
+    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive mount with HTTP"
+    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive handle_params with HTTP"
+    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive mount with Websocket"
+    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive handle_params with Websocket"
   end
 end
