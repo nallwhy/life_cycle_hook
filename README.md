@@ -30,6 +30,11 @@ defmodule MyApp.MyLive do
   def handle_event("click", params, socket) do
     ...
   end
+
+  @impl true
+  def handle_info(:send, socket) do
+    ...
+  end
 end
 ```
 
@@ -40,6 +45,7 @@ end
 [debug] MyApp.MyLive handle_params connected: true
 
 [debug] MyApp.MyLive handle_event event: click
+[debug] MyApp.MyLive handle_info message: send
 ```
 
 ### only/except options
@@ -105,7 +111,7 @@ end
 - [x] Add macro that replace `on_mount({LifeCycleHook, __MODULE__})`
 - [ ] Support nested LiveView with `sticky: true` option
 - [x] Add `handle_event` hook
-- [ ] Add `handle_info` hook
+- [x] Add `handle_info` hook
 - [x] Support `only`, `except` options in `use LifeCycleHook`
 - [x] Support setting log level
 - [ ] Support watching params of each hook
