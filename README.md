@@ -34,10 +34,10 @@ end
 ```
 
 ```
-[debug] MyApp.MyLive mount with HTTP
-[debug] MyApp.MyLive handle_params with HTTP
-[debug] MyApp.MyLive mount with WebSocket
-[debug] MyApp.MyLive handle_params with WebSocket
+[debug] MyApp.MyLive mount connected: false
+[debug] MyApp.MyLive handle_params connected: false
+[debug] MyApp.MyLive mount connected: true
+[debug] MyApp.MyLive handle_params connected: true
 
 [debug] MyApp.MyLive handle_event event: click
 ```
@@ -60,8 +60,8 @@ end
 ```
 
 ```
-[debug] MyApp.MyStickyNestedLive mount with HTTP
-[debug] MyApp.MyStickyNestedLive mount with WebSocket
+[debug] MyApp.MyStickyNestedLive mount connected: false
+[debug] MyApp.MyStickyNestedLive mount connected: true
 ```
 
 ### log_level option
@@ -81,8 +81,8 @@ end
 ```
 
 ```
-[warning] MyApp.MyWarnLogLevelLive mount with HTTP
-[warning] MyApp.MyWarnLogLevelLive mount with WebSocket
+[warning] MyApp.MyWarnLogLevelLive mount connected: false
+[warning] MyApp.MyWarnLogLevelLive mount connected: true
 ```
 
 ## Installation

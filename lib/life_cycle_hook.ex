@@ -29,54 +29,69 @@ defmodule LifeCycleHook do
     end
   end
 
-  def on_mount(%{stages: stages, log_level: log_level}, _params, _session, socket) do
+  def on_mount(%{stages: stages, log_level: log_level}, params, session, socket) do
     socket =
       stages
       |> Enum.reduce(socket, fn stage, socket ->
-        socket |> attach_life_cycle_hook(stage, log_level)
+        case stage do
+          :mount ->
+            log_mount_life_cycle(socket, params, session, log_level)
+
+            socket
+
+          stage ->
+            socket |> attach_life_cycle_hook(stage, log_level)
+        end
       end)
 
     {:cont, socket}
   end
 
-  defp attach_life_cycle_hook(socket, :mount, log_level) do
-    log_life_cycle(socket, :mount, nil, log_level)
+  defp log_mount_life_cycle(socket, _params, _session, log_level) do
+    message =
+      [get_common_message(socket, :mount), get_connection_message(socket)]
+      |> Enum.join(" ")
 
-    socket
+    Logger.log(log_level, message)
   end
 
-  defp attach_life_cycle_hook(socket, stage, log_level) do
+  defp attach_life_cycle_hook(socket, :handle_params, log_level) do
     socket
-    |> attach_hook(:life_cycle_hook, stage, fn params, _session, socket ->
-      log_life_cycle(socket, stage, params, log_level)
+    |> attach_hook(:life_cycle_hook, :handle_params, fn _params, _uri, socket ->
+      message =
+        [get_common_message(socket, :handle_params), get_connection_message(socket)]
+        |> Enum.join(" ")
+
+      Logger.log(log_level, message)
 
       {:cont, socket}
     end)
   end
 
-  defp log_life_cycle(socket, stage, params, log_level) do
-    Logger.log(log_level, log_message(socket, stage, params))
+  defp attach_life_cycle_hook(socket, :handle_event, log_level) do
+    socket
+    |> attach_hook(:life_cycle_hook, :handle_event, fn event, _params, socket ->
+      message =
+        [get_common_message(socket, :handle_event), get_event_message(event)]
+        |> Enum.join(" ")
+
+      Logger.log(log_level, message)
+
+      {:cont, socket}
+    end)
   end
 
-  defp log_message(socket, stage, _params) when stage in [:mount, :handle_params] do
-    module_name = get_module_name(socket)
-
-    method =
-      case connected?(socket) do
-        false -> "HTTP"
-        true -> "Websocket"
-      end
-
-    "#{module_name} #{stage} with #{method}"
+  defp get_event_message(event) do
+    "event: #{event}"
   end
 
-  defp log_message(socket, :handle_event = stage, event) do
-    module_name = get_module_name(socket)
-
-    "#{module_name} #{stage} event: #{event}"
+  defp get_connection_message(socket) do
+    "connected: #{connected?(socket)}"
   end
 
-  defp get_module_name(socket) do
-    socket.view |> inspect()
+  defp get_common_message(socket, stage) do
+    module_name = socket.view |> inspect()
+
+    "#{module_name} #{stage}"
   end
 end

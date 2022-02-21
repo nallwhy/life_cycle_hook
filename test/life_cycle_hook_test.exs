@@ -16,10 +16,10 @@ defmodule LifeCycleHookTest do
 
     assert {:ok, view, _} = result
 
-    assert log =~ "[debug] LifeCycleHookTest.TestLive mount with HTTP"
-    assert log =~ "[debug] LifeCycleHookTest.TestLive handle_params with HTTP"
-    assert log =~ "[debug] LifeCycleHookTest.TestLive mount with Websocket"
-    assert log =~ "[debug] LifeCycleHookTest.TestLive handle_params with Websocket"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive mount connected: false"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive handle_params connected: false"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive mount connected: true"
+    assert log =~ "[debug] LifeCycleHookTest.TestLive handle_params connected: true"
 
     {_, log} =
       with_log(fn ->
@@ -39,12 +39,12 @@ defmodule LifeCycleHookTest do
 
     assert {:ok, _, _} = result
 
-    assert log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive mount with HTTP"
-    refute log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive handle_params with HTTP"
-    assert log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive mount with Websocket"
+    assert log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive mount connected: false"
+    refute log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive handle_params connected: false"
+    assert log =~ "[debug] LifeCycleHookTest.TestOnlyMountLive mount connected: true"
 
     refute log =~
-             "[debug] LifeCycleHookTest.TestOnlyMountLive handle_params with Websocket"
+             "[debug] LifeCycleHookTest.TestOnlyMountLive handle_params connected: true"
   end
 
   test "use with except option" do
@@ -57,10 +57,10 @@ defmodule LifeCycleHookTest do
 
     assert {:ok, _, _} = result
 
-    refute log =~ "[debug] LifeCycleHookTest.TestExceptMountLive mount with HTTP"
-    assert log =~ "[debug] LifeCycleHookTest.TestExceptMountLive handle_params with HTTP"
-    refute log =~ "[debug] LifeCycleHookTest.TestExceptMountLive mount with Websocket"
-    assert log =~ "[debug] LifeCycleHookTest.TestExceptMountLive handle_params with Websocket"
+    refute log =~ "[debug] LifeCycleHookTest.TestExceptMountLive mount connected: false"
+    assert log =~ "[debug] LifeCycleHookTest.TestExceptMountLive handle_params connected: false"
+    refute log =~ "[debug] LifeCycleHookTest.TestExceptMountLive mount connected: true"
+    assert log =~ "[debug] LifeCycleHookTest.TestExceptMountLive handle_params connected: true"
   end
 
   test "use with log_level option" do
@@ -73,9 +73,9 @@ defmodule LifeCycleHookTest do
 
     assert {:ok, _, _} = result
 
-    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive mount with HTTP"
-    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive handle_params with HTTP"
-    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive mount with Websocket"
-    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive handle_params with Websocket"
+    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive mount connected: false"
+    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive handle_params connected: false"
+    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive mount connected: true"
+    assert log =~ "[warning] LifeCycleHookTest.TestLogLevelLive handle_params connected: true"
   end
 end
