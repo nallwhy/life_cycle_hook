@@ -14,4 +14,9 @@ defmodule LifeCycleHookTest.TestLive do
   def handle_event("click", _params, socket) do
     {:noreply, socket}
   end
+
+  @impl true
+  def handle_info(:message, socket) do
+    {:noreply, socket}
+  end
 end
