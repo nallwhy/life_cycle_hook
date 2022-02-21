@@ -27,6 +27,13 @@ defmodule LifeCycleHookTest do
       end)
 
     assert log =~ "[debug] LifeCycleHookTest.TestLive handle_event event: click"
+
+    {_, log} =
+      with_log(fn ->
+        view.pid |> send(:message)
+      end)
+
+    assert log =~ "[debug] LifeCycleHookTest.TestLive handle_info message: message"
   end
 
   test "use with only option" do

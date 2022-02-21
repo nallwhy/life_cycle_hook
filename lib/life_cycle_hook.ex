@@ -8,8 +8,7 @@ defmodule LifeCycleHook do
   import Phoenix.LiveView
   require Logger
 
-  # TODO: Add handle_info
-  @life_cycle_stages [:mount, :handle_params, :handle_event]
+  @life_cycle_stages [:mount, :handle_params, :handle_event, :handle_info]
 
   defmacro __using__(opts) do
     only = Keyword.get(opts, :only)
@@ -72,7 +71,7 @@ defmodule LifeCycleHook do
     socket
     |> attach_hook(:life_cycle_hook, :handle_event, fn event, _params, socket ->
       message =
-        [get_common_message(socket, :handle_event), get_event_message(event)]
+        [get_common_message(socket, :handle_event), "event: #{event}"]
         |> Enum.join(" ")
 
       Logger.log(log_level, message)
@@ -81,8 +80,17 @@ defmodule LifeCycleHook do
     end)
   end
 
-  defp get_event_message(event) do
-    "event: #{event}"
+  defp attach_life_cycle_hook(socket, :handle_info, log_level) do
+    socket
+    |> attach_hook(:life_cycle_hook, :handle_info, fn message, socket ->
+      message =
+        [get_common_message(socket, :handle_info), "message: #{message}"]
+        |> Enum.join(" ")
+
+      Logger.log(log_level, message)
+
+      {:cont, socket}
+    end)
   end
 
   defp get_connection_message(socket) do
