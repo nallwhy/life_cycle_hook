@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Enhancements
   - Remove `Elixir` prefix from module names in logs
+
 ## v0.6.0 (2022-02-20)
 
 - Enhancements
@@ -51,4 +52,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial Release
   - Add logging `mount/3` life-cycle of LiveView
-
